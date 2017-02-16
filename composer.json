@@ -1,0 +1,19 @@
+{
+	"name": "signify-nz/silverstripe-ipspamprotection",
+	"description": "Limits form submission based on submitter IP and a set of rules.",
+	"type": "silverstripe-module",
+	"homepage": "http://github.com/signify-nz/silverstripe-ipspamprotection",
+	"keywords": ["silverstripe", "ip", "spam"],
+	"license": "BSD-3-Clause",
+	"authors": [
+		{"name": "Signify","homepage": "http://signify.co.nz"}
+	],
+	"support": {
+		"issues": "http://github.com/signify-nz/silverstripe-ipspamprotection/issues"
+	},
+	"require": {
+		"silverstripe/cms": "^3.2",
+		"silverstripe/framework": "^3.2",
+		"unclecheese/display-logic": "^1.3"
+	}
+}
