@@ -1,3 +1,7 @@
 Injector:
   IPLoggerEntry:
     class: IPLoggerEntry
+  IPBanEntry:
+    class: IPBanEntry
+  IPLoggerService:
+    class: IPLoggerService
