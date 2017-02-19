@@ -7,7 +7,8 @@
 class IPLoggerEntry extends DataObject
 {
     private static $db = array(
-        'Event' => 'Varchar(255)',
-        'IP'    => 'Varchar(255)'
+        'Event'   => 'Varchar(255)',
+        'IP'      => 'Varchar(255)',
+        'Expried' => 'Boolean'
     );
 }
