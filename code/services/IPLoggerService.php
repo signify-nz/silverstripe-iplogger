@@ -84,7 +84,7 @@ class IPLoggerService extends Object
         if (isset($rules[$event])) {
             $rule = $rules[$event];
             
-            // If the rule for thie event is malformed throw an Exception;
+            // If the rule for this event is malformed throw an Exception;
             if (!(isset($rule['bantime']) && isset($rule['findtime']) && isset($rule['hits']))) {
                 throw new Exception(
                     'Rule must contain the keys bantime, findtime and hits.'
@@ -97,7 +97,7 @@ class IPLoggerService extends Object
 
     public function getPastDate($seconds)
     {
-        $interval = new DateInterval('PT' . $seconds  . 'M');
+        $interval = new DateInterval('PT' . $seconds  . 'S');
         $interval->invert = 1;
 
         $pastDate = new DateTime();
@@ -153,22 +153,26 @@ class IPLoggerService extends Object
             return true;
         }
 
+        $maxDate = $this->getPastDate($rule['bantime'])->format('c');
+        
         $banClass = get_class($this->banEntry);
         $bans = $banClass::get()->filter(
             array(
-                'Created' => $this->getPastDate($rule['bantime']),
+                'Created:GreaterThan' => $maxDate,
                 'Event'   => $event,
                 'IP'      => $this->getIP()
             )
         );
 
-        if ($bans > 0) {
+        if ($bans->count() > 0) {
             return false;
         }
+
+        $maxDate = $this->getPastDate($rule['findtime'])->format('c');
         
         $entries = $this->getEntries($event)->filter(
             array(
-                'Created:GreaterThan' => $this->getPastDate($rule['findtime'])
+                'Created:GreaterThan' => $maxDate
             )
         );
 
@@ -180,12 +184,15 @@ class IPLoggerService extends Object
 
         // Check if the number of entries is greater than the number of hits
         // allowed in findtime.
-        if ($entries->count()) {
+        if ($entries->count() > $rule['hits']) {
             $banEntry = $this->banEntry;
+            $banEntry->IP = $this->getIP();
             $banEntry->Event = $event;
             $banEntry->write();
 
             return false;
         }
+
+        return true;
     }
 }
