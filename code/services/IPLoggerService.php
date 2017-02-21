@@ -1,6 +1,6 @@
 <?php
 /**
- * Provides a central point via which code can use to log and review events.
+ * Provides a central point via which code can log and review events.
  * Ideally this service should be injected using SilverStripe's injector.
  *
  * @package silverstripe-iplogger
@@ -27,7 +27,7 @@ class IPLoggerService extends Object
      * Returns the IP address of the current client; relies on
      * {@link SS_HTTPRequest} to provide the IP address.
      *
-     * @return string The current clients IP address.
+     * @return string The current clients IP address
      */
     public function getIP()
     {
@@ -54,8 +54,8 @@ class IPLoggerService extends Object
     /**
      * Get's an array of logs related to the clients IP and the supplied event.
      *
-     * @param string $event The event.
-     * @return DataList A list of logged events.
+     * @param string $event The event
+     * @return DataList A list of logged events
      */
     public function getEntries($event)
     {
@@ -73,6 +73,24 @@ class IPLoggerService extends Object
         return $entries;
     }
 
+    /**
+     * If a rule exists for a specific event; return it.
+     *
+     * Any rules found are checked for validity and an error thrown if incorrect.
+     * Rules should be defined in .yml config files using the following format.
+     *
+     * <code>
+     * IPLoggerService:
+     *   rules:
+     *     submit_contact_form:
+     *       findtime: 60
+     *       hits: 4
+     *       bantime: 600
+     * </code>
+     *
+     * @param string $event The event we want a rule for
+     * @return array|null The rule array
+     */
     public function getRule($event)
     {
         $config = $this->config();
@@ -95,6 +113,12 @@ class IPLoggerService extends Object
         return $rule;
     }
 
+    /**
+     * Get a date x seconds ago.
+     *
+     * @param integer $seconds The number of seconds to subtract
+     * @return DateTime
+     */
     public function getPastDate($seconds)
     {
         $interval = new DateInterval('PT' . $seconds  . 'S');
@@ -138,10 +162,19 @@ class IPLoggerService extends Object
     }
     
     /**
+     * Checks if a specific client IP is allowed to perform an event
      *
-     * @param string $event The event being logged.
-     * @return true|string Whether the client has had too many of $event logged
-     *         against their IP. If they have exceeded the limit return ban time.
+     * First if there is no rule supplied for an event string, we assume
+     * that user can perform this event as many times as needed and it should
+     * be logged but not restricted.
+     * Next a check if performed to see if a client IP has been banned from
+     * performing an event.
+     * Finally we calculate the total number of logs for an event and check
+     * these are within the limits set by the rules. If they are not withing
+     * the limit apply a ban.
+     *
+     * @param string $event The event to check
+     * @return true|string Is the client allowd to perform $event
      */
     public function checkAllowed($event)
     {
@@ -164,6 +197,7 @@ class IPLoggerService extends Object
             )
         );
 
+        // Check if a ban exists.
         if ($bans->count() > 0) {
             return false;
         }
