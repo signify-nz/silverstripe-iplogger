@@ -1,4 +1,7 @@
 # IP Logger
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/signify-nz/silverstripe-iplogger/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/signify-nz/silverstripe-iplogger/?branch=master)
+
+# Overview
 Provides a faility to log events against IP adresses. 
 A set of rules can created to check whether an event has been triggered too often by a spedific IP.
 
