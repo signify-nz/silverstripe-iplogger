@@ -17,7 +17,9 @@ class IPLoggerService extends Object
         'banEntry'    => '%$IPBanEntry'
     );
 
-    protected $rule = null;
+    public $loggerEntry;
+
+    public $banEntry;
 
     public function __construct()
     {
@@ -186,16 +188,23 @@ class IPLoggerService extends Object
             return true;
         }
 
-        $maxDate = $this->getPastDate($rule['bantime'])->format('c');
+
         
         $banClass = get_class($this->banEntry);
-        $bans = $banClass::get()->filter(
-            array(
-                'Created:GreaterThan' => $maxDate,
+
+        $filter = array(
                 'Event'   => $event,
                 'IP'      => $this->getIP()
-            )
         );
+
+        // If a rule has a ban time that is not 0 it means bans expire, so add a
+        // filter to take this into account.
+        if ($rule['bantime'] !== 0) {
+            $maxDate = $this->getPastDate($rule['bantime'])->format('c');
+            $filter['Created:GreaterThan'] = $maxDate;
+        }
+        
+        $bans = $banClass::get()->filter($filter);
 
         // Check if a ban exists.
         if ($bans->count() > 0) {
