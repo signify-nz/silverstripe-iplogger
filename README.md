@@ -13,9 +13,11 @@ composer require signify-nz/silverstripe-iplogger
 
 If you prefer you may also install manually:
 * Download the module from here https://github.com/signify-nz/silverstripe-iplogger/archive/master.zip
-* Extract the downloaded archive into your site root so that the destination folder is called silverstripe-logger.
+* Extract the downloaded archive into your site root so that the destination folder is called silverstripe-iplogger.
 * Run dev/build to flush the config manifests and rebuild the database.
 
 ## Usage
-
 [User Guide](/docs/en/user_guide.md)
+
+## Developers
+[Configuration](/docs/en/configuration.md)
