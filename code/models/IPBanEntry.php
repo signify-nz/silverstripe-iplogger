@@ -10,4 +10,17 @@ class IPBanEntry extends DataObject
         'Event'   => 'Varchar(255)',
         'IP'      => 'Varchar(255)'
     );
+
+    private static $default_sort = 'Created';
+
+    private static $summary_fields = array(
+        'Created',
+        'IP',
+        'Event'
+    );
+
+    public function Title()
+    {
+        return $this->Event;
+    }
 }
