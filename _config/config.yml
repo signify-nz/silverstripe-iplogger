@@ -5,3 +5,7 @@ Injector:
     class: IPBanEntry
   IPLoggerService:
     class: IPLoggerService
+
+SecurityAdmin:
+  extensions:
+    - IPLoggerSecurityAdminExtension
