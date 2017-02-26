@@ -1,4 +1,9 @@
 <?php
+/**
+ * Provides a CMS interface to administer {@link IPLoggerEntry} {@link IPLoggerBan}.
+ *
+ * @package silverstripe-iplogger
+ */
 class IPLoggerSecurityAdminExtension extends LeftAndMainExtension
 {
     private static $dependencies = array(
