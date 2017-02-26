@@ -1,4 +1,9 @@
 <?php
+/**
+ * Provides a CMS interface to administer {@link IPLoggerEntry} {@link IPLoggerBan}.
+ *
+ * @package silverstripe-iplogger
+ */
 class IPLoggerSecurityAdminExtension extends LeftAndMainExtension
 {
     private static $dependencies = array(
@@ -50,15 +55,11 @@ class IPLoggerSecurityAdminExtension extends LeftAndMainExtension
 
                         $active = $banSeconds === 0 || $banSecondsAgo < $banSeconds;
 
-                        switch ($active) {
-                            case true:
-                                $colour = 'rgb(76, 153, 0)';
-                                $value = 'Active';
-                                break;
-                            case false:
-                                $colour = 'rgb(255, 0, 0)';
-                                $value = 'Expired';
-                                break;
+                        $colour = 'rgb(255, 0, 0)';
+                        $value = 'Expired';
+                        if ($active) {
+                            $colour = 'rgb(76, 153, 0)';
+                            $value = 'Active';
                         }
 
                         $html = "<strong style='color: {$colour};

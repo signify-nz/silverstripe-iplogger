@@ -18,9 +18,4 @@ class IPBanEntry extends DataObject
         'IP',
         'Event'
     );
-
-    public function Title()
-    {
-        return $this->Event;
-    }
 }

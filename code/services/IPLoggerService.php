@@ -132,37 +132,6 @@ class IPLoggerService extends Object
         return $pastDate;
     }
     
-    public function pruneEntries($event)
-    {
-        $config = $this->config();
-        
-        $entryClass = get_class($this->loggerEntry);
-
-        $rule = $this->getRule($event);
-
-        if ($rule) {
-            $entries = $entryClass::get()->filter(
-                array(
-                    'Created:LessThan' => $minTime,
-                    'Event' => $minTime->format('c'),
-                    'IP' => $this->getIP()
-                )
-            );
-
-            if ($entries) {
-                $deleteExpired = $config->get('delete_expired');
-            
-                foreach ($entries as $entry) {
-                    if ($deleteExpired) {
-                        $entry->delete();
-                    } else {
-                        $entry->Expired = true;
-                    }
-                }
-            }
-        }
-    }
-    
     /**
      * Checks if a specific client IP is allowed to perform an event
      *
@@ -188,8 +157,6 @@ class IPLoggerService extends Object
             return true;
         }
 
-
-        
         $banClass = get_class($this->banEntry);
 
         $filter = array(

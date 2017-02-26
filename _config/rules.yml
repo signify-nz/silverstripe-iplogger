@@ -1,6 +1,0 @@
-IPLoggerService:
-  rules:
-    foobar:
-      findtime: 60
-      hits: 4
-      bantime: 600
