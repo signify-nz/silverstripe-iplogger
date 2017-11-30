@@ -1,6 +1,6 @@
 # Developer documentation
 ## Overview
-Provides a basic mechanism by which user interactions can be logged and limited if desired. This module works on the idea of a named **event** that is logged and an optional set of **rules** restrcting the number of events within a time period.
+Provides a basic mechanism by which user interactions can be logged and limited if desired. This module works on the idea of a named **event** that is logged and an optional set of **rules** restricting the number of events within a time period.
 Events and rules are not automatically checked or limited, instead the developer is expected to implement this behaviour using the functionality provided.
 
 ## Basic usage

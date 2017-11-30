@@ -1,6 +1,6 @@
 <?php
 /**
- * Provides a {@link DataObject} to store a ban against a specififc IP.
+ * Provides a {@link DataObject} to store a ban against a specific IP.
  *
  * @package silverstripe-iplogger
  */

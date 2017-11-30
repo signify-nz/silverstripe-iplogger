@@ -11,7 +11,7 @@ class IPLoggerService extends Object
     private static $rules = array();
 
     private static $delete_expired = false;
-    
+
     private static $dependencies = array(
         'loggerEntry' => '%$IPLoggerEntry',
         'banEntry'    => '%$IPBanEntry'
@@ -64,7 +64,7 @@ class IPLoggerService extends Object
         $entryClass = get_class($this->loggerEntry);
 
         //$this->pruneEntries($event);
-        
+
         $entries = $entryClass::get()->filter(
             array(
                 'Event' => $event,
@@ -100,10 +100,10 @@ class IPLoggerService extends Object
         $rules = $config->get('rules');
 
         $rule = null;
-        
+
         if (isset($rules[$event])) {
             $rule = $rules[$event];
-            
+
             // If the rule for this event is malformed throw an Exception;
             if (!(isset($rule['bantime']) && isset($rule['findtime']) && isset($rule['hits']))) {
                 throw new Exception(
@@ -131,7 +131,7 @@ class IPLoggerService extends Object
 
         return $pastDate;
     }
-    
+
     /**
      * Checks if a specific client IP is allowed to perform an event
      *
@@ -141,11 +141,11 @@ class IPLoggerService extends Object
      * Next a check if performed to see if a client IP has been banned from
      * performing an event.
      * Finally we calculate the total number of logs for an event and check
-     * these are within the limits set by the rules. If they are not withing
+     * these are within the limits set by the rules. If they are not within
      * the limit apply a ban.
      *
      * @param string $event The event to check
-     * @return boolean|string Is the client allowd to perform $event
+     * @return boolean|string Is the client allowed to perform $event
      */
     public function checkAllowed($event)
     {
@@ -170,7 +170,7 @@ class IPLoggerService extends Object
             $maxDate = $this->getPastDate($rule['bantime'])->format('c');
             $filter['Created:GreaterThan'] = $maxDate;
         }
-        
+
         $bans = $banClass::get()->filter($filter);
 
         // Check if a ban exists.
@@ -179,7 +179,7 @@ class IPLoggerService extends Object
         }
 
         $maxDate = $this->getPastDate($rule['findtime'])->format('c');
-        
+
         $entries = $this->getEntries($event)->filter(
             array(
                 'Created:GreaterThan' => $maxDate
