@@ -6,7 +6,7 @@
  * @package silverstripe-iplogger
  * @see https://docs.silverstripe.org/en/3.1/developer_guides/extending/injector/
  */
-class IPLoggerService extends Object
+class IPLoggerService extends SS_Object
 {
     private static $rules = array();
 
