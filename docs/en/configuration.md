@@ -12,7 +12,7 @@ class FooObject extends DataObject
 {
 ...
     private static $dependencies = array(
-		'loggerService' => '%$IPLoggerService'
+        'loggerService' => '%$IPLoggerService'
     );
 
     public $loggerService;
@@ -28,7 +28,7 @@ $this->loggerService->log('test_event');
     
 `IPLoggerService->checkAllowed()` is user to check if an event is allowed
 
-    ```php
+```php
     $allowed = $this->loggerService->checkAllowed('test_event');
     if($allowed) {
         $this->loggerService->log('test_event');
@@ -38,7 +38,7 @@ $this->loggerService->log('test_event');
         // Take appropriate action
         ...
     }
-	```
+```
 
 ## Configuration
 
@@ -52,11 +52,11 @@ Rules must have the following three values
 
 Here is an example of a rule that allows an event to be carried out 3 times in sixty seconds, if the user exceeds this limit they will be banned for 5 minutes.
 
-	```yml
+```yml
     IPLoggerService:
      rules:
       foobar:
         findtime: 60
         hits: 3
         bantime: 300
-
+```
