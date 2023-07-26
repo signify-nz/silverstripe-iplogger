@@ -1,6 +1,10 @@
 # IP Logger
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/signify-nz/silverstripe-iplogger/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/signify-nz/silverstripe-iplogger/?branch=master)
 
+**This module has not been updated for years and only works with an
+obsolete and vulnerable version of Silverstripe. This repository has
+been archived.**
+
 # Overview
 Provides a facility to log events against IP addresses. 
 A set of rules can created to check whether an event has been triggered too often by a specific IP.
